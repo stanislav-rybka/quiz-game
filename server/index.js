@@ -5,6 +5,7 @@ import path from "path";
 import sequelize from "./db.js"
 import models from "./models/models.js";
 import router from "./routes/index.js";
+import errorHandlingMiddleware from "./middlewares/errorHandlingMiddleware.js";
 
 
 // Reading path to current folder
@@ -17,11 +18,16 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 
-// Assigning middlewares
+// Middleware to allow making REST requests from different origins
 app.use( cors() );
+// Middleware to format request body in JSON format
 app.use( express.json() );
+// Middleware to designate a path to folder with static files
 app.use( express.static( path.resolve(__dirname, 'static') ) );
+// Middleware to apply established routers (endpoints)
 app.use('/api', router);
+// Middleware to handle errors thrown when working with requests
+app.use(errorHandlingMiddleware);
 
 
 const start = async () => {

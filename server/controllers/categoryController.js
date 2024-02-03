@@ -4,8 +4,16 @@ import Category from "../models/category/category.js";
 
 class CategoryController {
 
-  async create(req, res) {
-    res.status(200).json({ message: 'Category creation' });
+  async create(req, res, next) {
+    const { name } = req.body;
+
+    try {
+      const createdCategory = await Category.create({ name });
+
+      return res.status(200).json(createdCategory);
+    } catch (err) {
+      return next( ApiError.badRequest(err.message) );
+    }
   }
 
 }

@@ -22,6 +22,8 @@ const app = express();
 app.use( cors() );
 // Middleware to format request body in JSON format
 app.use( express.json() );
+// Middleware to format request body in FORM-URLENCODED format
+app.use( express.urlencoded({ extended: false }) );
 // Middleware to designate a path to folder with static files
 app.use( express.static( path.resolve(__dirname, 'static') ) );
 // Middleware to apply established routers (endpoints)

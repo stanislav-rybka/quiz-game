@@ -10,5 +10,7 @@ router.get('/', answerController.getAll);
 
 router.post('/', answerController.create);
 
+router.delete('/:id', answerController.delete);
+
 
 export default router;

@@ -1,3 +1,7 @@
+import ApiError from "../errors/ApiError.js";
+import Question from "../models/question/question.js";
+
+
 class QuestionController {
 
   async create(req, res) {

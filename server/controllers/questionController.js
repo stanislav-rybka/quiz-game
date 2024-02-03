@@ -1,5 +1,10 @@
 import ApiError from "../errors/ApiError.js";
 import Question from "../models/question/question.js";
+import { v4 as uuidv4 } from 'uuid';
+import path from "path";
+
+
+const __dirname = import.meta.dirname;
 
 
 class QuestionController {
@@ -17,14 +22,28 @@ class QuestionController {
 
   async create(req, res, next) {
     const { text, categoryId, answerId } = req.body;
-    const { image } = req.files;
+    let image;
 
-    console.log(image);
+    if (req.files) {
+      image = req.files.image;
+    }
+    
 
     try {
+      let fileName;
+
+      if (image) {
+        // Generating unique file name
+        fileName = `${ uuidv4() }.jpg`;
+
+        // Moving uploaded file to he "static" folder
+        image.mv( path.resolve(__dirname, '..', 'static', fileName) );
+      }
+
+      // Creation of question in DB
       const result = await Question.create({ 
         text, 
-        image, 
+        image : fileName || '', 
         categoryId, 
         answerId
       });

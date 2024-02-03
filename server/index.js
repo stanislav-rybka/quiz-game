@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import sequelize from "./db.js"
 import models from "./models/models.js";
+import fileUpload from "express-fileupload";
 import router from "./routes/index.js";
 import errorHandlingMiddleware from "./middlewares/errorHandlingMiddleware.js";
 
@@ -20,14 +21,22 @@ const app = express();
 
 // Middleware to allow making REST requests from different origins
 app.use( cors() );
+
 // Middleware to format request body in JSON format
 app.use( express.json() );
+
 // Middleware to format request body in FORM-URLENCODED format
 app.use( express.urlencoded({ extended: false }) );
+
+// Middleware to be able to work with uploaded files
+app.use( fileUpload({}) );
+
 // Middleware to designate a path to folder with static files
 app.use( express.static( path.resolve(__dirname, 'static') ) );
+
 // Middleware to apply established routers (endpoints)
 app.use('/api', router);
+
 // Middleware to handle errors thrown when working with requests
 app.use(errorHandlingMiddleware);
 

@@ -27,7 +27,6 @@ class QuestionController {
     if (req.files) {
       image = req.files.image;
     }
-    
 
     try {
       let fileName;

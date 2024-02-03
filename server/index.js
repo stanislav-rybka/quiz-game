@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import sequelize from "./db.js"
 import models from "./models/models.js";
+import router from "./routes/index.js";
 
 
 // Reading path to current folder
@@ -20,6 +21,7 @@ const app = express();
 app.use( cors() );
 app.use( express.json() );
 app.use( express.static( path.resolve(__dirname, 'static') ) );
+app.use('/api', router);
 
 
 const start = async () => {

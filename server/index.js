@@ -3,6 +3,7 @@ import 'dotenv/config';
 import cors from "cors";
 import path from "path";
 import sequelize from "./db.js"
+import models from "./models/models.js";
 
 
 // Reading path to current folder

@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import UserStore from './store/UserStore';
-import GameStore from './store/GameStore';
+import QuizStore from './store/QuizStore';
 
 
 // Global context for the application
@@ -18,7 +18,7 @@ root.render(
     {/* Adding user and game stores to be accessible through context */}
     <Context.Provider value={{
       user: new UserStore(),
-      game: new GameStore()
+      quiz: new QuizStore()
     }}>
 
       <App />

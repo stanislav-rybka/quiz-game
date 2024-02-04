@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "../routes";
-import { LOGIN_ROUTE } from "../utils/constants";
+import { GAME_ROUTE, LOGIN_ROUTE } from "../utils/constants";
 
 
 const AppRouter = () => {
@@ -17,9 +17,9 @@ const AppRouter = () => {
 
       )}
 
-      {/* Route which redirects to "Login" page in case URL is not found */}
+      {/* Route which redirects to "Game" page in case URL is not found */}
       
-      <Route path="*" element={<Navigate to={LOGIN_ROUTE} />} />
+      <Route path="*" element={<Navigate to={GAME_ROUTE} />} />
 
     </Routes>
   );

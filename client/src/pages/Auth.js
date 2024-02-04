@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../index';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -6,11 +7,17 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
-import { NavLink, useLocation } from 'react-router-dom';
+import { GAME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 
 const Auth = () => {
+  const { user } = useContext(Context);
+
+  // Using hook to navigate to pages
+  const navigate = useNavigate();
+
+  // Using hook to identify current location (path)
   const currentLocation = useLocation();
   const isLogin = (currentLocation.pathname === LOGIN_ROUTE);
 
@@ -19,7 +26,7 @@ const Auth = () => {
 
       <Row className="h-100 justify-content-center align-items-center">
 
-        <Col xs="6">
+        <Col xs={6}>
 
           <Card className="px-5 py-4">
 
@@ -50,9 +57,25 @@ const Auth = () => {
                 </Col>
 
                 <Col xs="auto">
-                  <Button variant="secondary">
-                    {isLogin ? 'Login' : 'Register'}
-                  </Button>
+                  {isLogin ? (
+
+                    <Button variant="secondary" onClick={() => { 
+                      user.setIsAuthorized(true);
+                      navigate(GAME_ROUTE);
+                    }}>
+                      Login
+                    </Button>
+
+                  ) : (
+
+                    <Button variant="secondary" onClick={() => {
+                      user.setIsAuthorized(true);
+                      navigate(GAME_ROUTE); 
+                    }}>
+                      Register
+                    </Button>
+
+                  )}
                 </Col>
 
               </Row>

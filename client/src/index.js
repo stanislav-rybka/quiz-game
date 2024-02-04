@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 import UserStore from './store/UserStore';
 import GameStore from './store/GameStore';
@@ -9,7 +9,10 @@ import GameStore from './store/GameStore';
 export const Context = createContext(null);
 
 
-ReactDOM.render(
+const root = ReactDOM.createRoot( document.getElementById('root')) ;
+
+
+root.render(
   <React.StrictMode>
 
     {/* Adding user and game stores to be accessible through context */}
@@ -22,7 +25,5 @@ ReactDOM.render(
 
     </Context.Provider>
 
-  </React.StrictMode>,
-
-  document.getElementById('root')
+  </React.StrictMode>
 );

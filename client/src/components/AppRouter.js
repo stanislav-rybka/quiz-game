@@ -1,12 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes } from "../routes";
-import { GAME_ROUTE, LOGIN_ROUTE } from "../utils/constants";
+import { GAME_ROUTE } from "../utils/constants";
 
 
 const AppRouter = () => {
-  const isAuthorized = false;
-
   return (
     <Routes>
       {/* Generating all public routes */}

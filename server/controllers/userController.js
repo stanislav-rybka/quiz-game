@@ -36,7 +36,8 @@ class UserController {
 
       return res.status(200).json({
         id: user.id,
-        email
+        email,
+        nickname: user.nickname
       });
     } catch (err) {
       return next( ApiError.badRequest(err.message) );
@@ -45,7 +46,7 @@ class UserController {
   
   
   async register(req, res, next) {
-    const { email, password } = req.body;
+    const { email, password, nickname } = req.body;
 
     // Check if provided email/password values exist
     if ( !email || !password ) {
@@ -68,11 +69,12 @@ class UserController {
       const hashPassword = await bcrypt.hash(password, saltRounds);
 
       // Creationg of user
-      const result = await User.create({ email, password: hashPassword });
+      const result = await User.create({ email, password: hashPassword, nickname });
 
       return res.status(200).json({
         id: result.id,
-        email: result.email
+        email,
+        nickname
       });
     } catch (err) {
       return next( ApiError.badRequest(err.message) );

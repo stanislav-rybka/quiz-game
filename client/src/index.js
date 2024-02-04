@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App';
 import UserStore from './store/UserStore';
 import GameStore from './store/GameStore';
@@ -21,6 +21,7 @@ ReactDOM.render(
       <App />
 
     </Context.Provider>
+
   </React.StrictMode>,
 
   document.getElementById('root')

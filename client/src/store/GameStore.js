@@ -3,8 +3,8 @@ import { makeAutoObservable } from "mobx";
 
 export default class GameStore {
 
-  #questions = [];
-  #nextQuestion = {};
+  _questions = [];
+  _nextQuestion = {};
 
 
   constructor() {
@@ -14,20 +14,20 @@ export default class GameStore {
 
 
   setQuestions(questions) {
-    this.#questions = questions;
+    this._questions = questions;
   }
 
   setNextQuestion(question) {
-    this.#questions = question;
+    this._nextQuestion = question;
   }
 
 
   get questions() {
-    return this.#questions;
+    return this._questions;
   }
 
   get nextQuestion() {
-    return this.#nextQuestion;
+    return this._nextQuestion;
   }
 
 }

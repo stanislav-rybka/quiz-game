@@ -3,8 +3,8 @@ import { makeAutoObservable } from "mobx";
 
 export default class UserStore {
 
-  #isAuthorized = false;
-  #user = {};
+  _isAuthorized = false;
+  _user = {};
 
 
   constructor() {
@@ -14,20 +14,20 @@ export default class UserStore {
 
 
   setIsAuthorized(state) {
-    this.#isAuthorized = state;
+    this._isAuthorized = state;
   }
 
   setUser(user) {
-    this.#user = user;
+    this._user = user;
   }
 
 
   get isAuthorized() {
-    return this.#isAuthorized;
+    return this._isAuthorized;
   }
 
   get user() {
-    return this.#user;
+    return this._user;
   }
 
 }

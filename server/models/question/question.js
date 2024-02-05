@@ -1,5 +1,6 @@
 import sequelize from "../../db.js";
 import { DataTypes } from "sequelize";
+import Answer from "../answer/answer.js";
 
 
 // Describing the "Question" model
@@ -20,6 +21,16 @@ const Question = sequelize.define('question', {
     type: DataTypes.STRING,
   }
 
+});
+
+
+// Establishing "One-to-Many" references between "Question" and "Answer" models
+Question.hasMany(Answer);
+
+Answer.belongsTo(Question, {
+  foreignKey: {
+    allowNull: false
+  }
 });
 
 

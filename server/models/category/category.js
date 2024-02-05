@@ -1,7 +1,6 @@
 import sequelize from "../../db.js";
 import { DataTypes } from "sequelize";
-import Answer from "../answer/answer.js";
-import Question from "../question/question.js";
+import Quiz from "../quiz/quiz.js";
 
 
 // Describing the "Category" model
@@ -22,20 +21,10 @@ const Category = sequelize.define('category', {
 });
 
 
-// Establishing "One-to-Many" references between "Category" and "Answer" models
-Category.hasMany(Answer);
+// Establishing "One-to-Many" references between "Category" and "Quiz" models
+Category.hasMany(Quiz);
 
-Answer.belongsTo(Category, {
-  foreignKey: {
-    allowNull: false
-  }
-});
-
-
-// Establishing "One-to-Many" references between "Category" and "Question" models
-Category.hasMany(Question);
-
-Question.belongsTo(Category, {
+Quiz.belongsTo(Category, {
   foreignKey: {
     allowNull: false
   }

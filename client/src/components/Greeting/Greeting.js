@@ -5,9 +5,6 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-const quizQuestionsCount = 20;
-
-
 const Greeting = observer(({ onStartGame }) => {
   const { user, quiz } = useContext(Context);
 

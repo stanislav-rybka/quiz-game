@@ -1,74 +1,14 @@
 import { makeAutoObservable } from "mobx";
 import { shuffle } from "../utils/arrayUtils";
-
-
-const sampleQuestions = [
-  {
-    text: 'What is a name of the football team shown in the image?',
-    image: '400x200.png',
-    correctAnswerId: '1',
-    answerOptions: [
-      { id: '1', text: 'Barcelona' },
-      { id: '2', text: 'Real Madrid' },
-      { id: '3', text: 'Arsenal' },
-      { id: '4', text: 'Chelsea' },
-    ],
-  },
-
-  {
-    text: 'Which club did Alan Shearer win the Premier League title with?',
-    image: '400x200.png',
-    correctAnswerId: '6',
-    answerOptions: [
-      { id: '5', text: 'Watford' },
-      { id: '6', text: 'Blackburn Rovers' },
-      { id: '7', text: 'Manchester City' },
-      { id: '8', text: 'Liverpool' },
-    ],
-  },
-
-  {
-    text: 'Who was the first goalkeeper to score in an FA Cup tie?',
-    image: '400x200.png',
-    correctAnswerId: '9',
-    answerOptions: [
-      { id: '9', text: 'Alan Cooling' },
-      { id: '10', text: 'John Lewen' },
-      { id: '11', text: 'Partu Sagba' },
-      { id: '12', text: 'Lius Kraft' },
-    ],
-  },
-
-  {
-    text: 'How many times has England won the UEFA Women\'s Championship?',
-    image: '400x200.png',
-    correctAnswerId: '16',
-    answerOptions: [
-      { id: '13', text: '5' },
-      { id: '14', text: '7' },
-      { id: '15', text: '2' },
-      { id: '16', text: '1' },
-    ],
-  },
-
-  {
-    text: 'Which company has sponsored the EFL Trophy since 2020?',
-    image: '400x200.png',
-    correctAnswerId: '17',
-    answerOptions: [
-      { id: '17', text: 'Papa Johns' },
-      { id: '18', text: 'Coca-Cola' },
-      { id: '19', text: 'McDonalds' },
-      { id: '20', text: 'KFS' },
-    ],
-  },
-];
+import { fetchQuizById } from "../http/quizAPI";
 
 
 export default class QuizStore {
 
   _defaultQuestionsCount = 20;
 
+  _name;
+  _description;
   _questions = [];
   _successQuestions = [];
   _failedQuestions = [];
@@ -80,6 +20,14 @@ export default class QuizStore {
     makeAutoObservable(this);
   }
 
+
+  setName(name) {
+    this._name = name;
+  }
+
+  setDescription(description) {
+    this._description = description;
+  }
 
   setQuestions(questions) {
     this._questions = questions;
@@ -93,18 +41,30 @@ export default class QuizStore {
   }
 
 
-  async initialize(category) {
+  async initialize() {
     // TODO: change to API request
-    const questions = await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(sampleQuestions);
+        resolve(true);
       }, 1000);
     });
 
-      
-    this.setQuestions( [...shuffle(questions)] );
+
+    const response = await fetchQuizById(1);
+
+    this.setName(response.data.name);
+    this.setDescription(response.data.description);
+    this.setQuestions( [...shuffle( this._convertQuestions(response.data.questions) )] );
     this.setCurrentQuestion(0);
   }
+
+  _convertQuestions(questions) {
+    return questions.map(question => ({
+      ...question,
+      correctAnswerId: question.answers.find(answer => answer.isCorrect === true)?.id
+    }))
+  }
+
 
   answerIsCorrect() {
     this.successQuestions.push(this.currentQuestion);
@@ -125,6 +85,14 @@ export default class QuizStore {
 
   get defaultQuestionsCount() {
     return this._defaultQuestionsCount;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get description() {
+    return this._description;
   }
 
   get questions() {

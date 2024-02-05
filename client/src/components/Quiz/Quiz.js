@@ -11,9 +11,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-const Quiz = observer(({ category, onStartGame }) => {
+const Quiz = observer(({ onFinish }) => {
   // Context hooks
-  const { user, quiz } = useContext(Context);
+  const { quiz } = useContext(Context);
 
   // Ref hooks
   const answerOptionsRefs = useRef(null);
@@ -32,6 +32,7 @@ const Quiz = observer(({ category, onStartGame }) => {
   const [answerIsSubmitted, setAnswerIsSubmitted] = useState(false);
 
   // Calculations
+  const currentQuestion = quiz.currentQuestion.details;
   const totalQuestionsCount = quiz.questions.length;
   const submittedQuestionsCount = quiz.currentQuestion.number;
   const progressBarRatio = (100 * submittedQuestionsCount) / totalQuestionsCount;
@@ -39,10 +40,8 @@ const Quiz = observer(({ category, onStartGame }) => {
 
   // Initializing a quiz
   useEffect(() => {
-    quiz.initialize(category).finally(() => {
-      setLoading(false);
-    });
-  }, []);
+    quiz.initialize().finally(() => setLoading(false));
+  }, [quiz]);
 
 
   // Actions handlers
@@ -58,7 +57,7 @@ const Quiz = observer(({ category, onStartGame }) => {
 
   const handleCheckAnswerButtonClick = () => {
     const refs = getAnswerOptionRefs();
-    const correctAnswerId = quiz.currentQuestion.details.correctAnswerId;
+    const correctAnswerId = currentQuestion.correctAnswerId;
 
     if (correctAnswerId === selectedAnswer) {
       quiz.answerIsCorrect();
@@ -78,7 +77,7 @@ const Quiz = observer(({ category, onStartGame }) => {
   }
 
   const handleFinishButtonClick = () => {
-    console.log('Finish');
+    onFinish();
   }
 
 
@@ -98,6 +97,11 @@ const Quiz = observer(({ category, onStartGame }) => {
   return (
     <Card>
 
+      <Card.Header className="text-center">
+        {quiz.name}
+      </Card.Header>
+
+
       <Card.Header>
 
         <ProgressBar 
@@ -109,38 +113,42 @@ const Quiz = observer(({ category, onStartGame }) => {
       </Card.Header>
 
       
-      <Card.Img 
-        className="mt-2" 
-        variant="top" 
-        src={process.env.REACT_APP_API_URL + quiz.currentQuestion.details.image} 
-      />
+      {currentQuestion.image && (
+
+        <Card.Img 
+          className="mt-2" 
+          variant="top" 
+          src={process.env.REACT_APP_API_URL + currentQuestion.image} 
+        />
+
+      )}
 
 
       <Card.Body>
 
-        <Card.Title> {quiz.currentQuestion.details.text} </Card.Title>
+        <Card.Title> {currentQuestion.text} </Card.Title>
 
         
         <Form>
 
           <Row className="mt-4">
 
-            {quiz.currentQuestion.details.answerOptions.map(answerOption => (
+            {currentQuestion.answers.map(answer => (
 
-              <Col key={answerOption.id} xs={12} md={6}>
+              <Col key={answer.id} xs={12} md={6}>
 
                 <div 
-                  className={`p-3 m-1 rounded border ${answerOption.id === selectedAnswer ? 'active-answer-option' : 'answer-option'}`}
-                  onClick={() => setSelectedAnswer(answerOption.id)}
-                  ref={(node) => handleAnswerOptionRefInit(node, answerOption)}
+                  className={`p-3 m-1 rounded border ${answer.id === selectedAnswer ? 'active-answer-option' : 'answer-option'}`}
+                  onClick={() => setSelectedAnswer(answer.id)}
+                  ref={(node) => handleAnswerOptionRefInit(node, answer)}
                 >
 
                   <Form.Check
                     name="question-answer"
                     type="radio"
-                    label={answerOption.text}
-                    value={answerOption.id}
-                    checked={answerOption.id === selectedAnswer}
+                    label={answer.text}
+                    value={answer.id}
+                    checked={answer.id === selectedAnswer}
                     onChange={(e) => setSelectedAnswer(e.target.value)}
                   />
 
@@ -162,6 +170,7 @@ const Quiz = observer(({ category, onStartGame }) => {
               <Button
                 variant="secondary" 
                 onClick={handleCheckAnswerButtonClick}
+                disabled={ !selectedAnswer || answerIsSubmitted }
               >
                 Check Answer
               </Button>

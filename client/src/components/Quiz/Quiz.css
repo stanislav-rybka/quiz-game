@@ -2,3 +2,15 @@
   background-color: #FFF7DE;
   cursor: pointer;
 }
+
+.active-answer-option {
+  background-color: #AFCAFF;
+}
+
+.correct-answer-option {
+  background-color: #ADFFAA;
+}
+
+.incorrect-answer-option {
+  background-color: #FF9696;
+}

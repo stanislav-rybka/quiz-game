@@ -25,7 +25,7 @@ const Header = observer(() => {
 
       <Container>
 
-        <Navbar.Brand>
+        <Navbar.Brand href={GAME_ROUTE}>
           <img alt=""
                src="./quiz-logo-white.png"
                width="50"

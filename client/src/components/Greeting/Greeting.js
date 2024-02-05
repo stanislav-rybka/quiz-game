@@ -9,7 +9,7 @@ const quizQuestionsCount = 20;
 
 
 const Greeting = observer(({ onStartGame }) => {
-  const { user } = useContext(Context);
+  const { user, quiz } = useContext(Context);
 
   return (
     <Card>
@@ -24,7 +24,7 @@ const Greeting = observer(({ onStartGame }) => {
 
 
         <Card.Text className="mt-4">
-          Quiz consists of {quizQuestionsCount} questions.
+          Quiz consists of {quiz.defaultQuestionsCount} questions.
         </Card.Text>
 
         <Card.Text className="mt-4">

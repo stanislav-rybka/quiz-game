@@ -12,4 +12,5 @@ router.post('/', categoryController.create);
 
 router.delete('/:id', categoryController.delete);
 
+
 export default router;

@@ -11,7 +11,7 @@ class QuestionController {
 
   async getAll(req, res, next) {
     try {
-      const result = Question.findAll();
+      const result = await Question.findAll();
 
       return res.status(200).json(result);
     } catch (err) {
@@ -21,7 +21,7 @@ class QuestionController {
 
 
   async create(req, res, next) {
-    const { text, categoryId, answerId } = req.body;
+    const { text, quizId  } = req.body;
     let image;
 
     if (req.files) {
@@ -43,8 +43,7 @@ class QuestionController {
       const result = await Question.create({ 
         text, 
         image : fileName || '', 
-        categoryId, 
-        answerId
+        quizId
       });
 
       return res.status(200).json(result);
@@ -58,7 +57,7 @@ class QuestionController {
     const { id } = req.params;
 
     try {
-      const result = Question.destroy({
+      const result = await Question.destroy({
         where: { 
           id 
         } 

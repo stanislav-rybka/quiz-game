@@ -1,12 +1,12 @@
 import ApiError from "../errors/ApiError.js";
-import Answer from "../models/answer/answer.js";
+import Quiz from "../models/quiz/quiz.js";
 
 
-class AnswerController {
+class QuizController {
 
   async getAll(req, res, next) {
     try {
-      const result = await Answer.findAll();
+      const result = await Quiz.findAll();
 
       return res.status(200).json(result);
     } catch (err) {
@@ -16,13 +16,13 @@ class AnswerController {
 
 
   async create(req, res, next) {
-    const { text, isCorrect, questionId } = req.body;
+    const { name, description, categoryId } = req.body;
 
     try {
-      const result = await Answer.create({ 
-        text, 
-        isCorrect,
-        questionId 
+      const result = await Quiz.create({ 
+        name,
+        description,
+        categoryId
       });
 
       return res.status(200).json(result);
@@ -36,7 +36,7 @@ class AnswerController {
     const { id } = req.params;
 
     try {
-      const result = await Answer.destroy({ 
+      const result = await Quiz.destroy({ 
         where: { 
           id 
         } 
@@ -51,4 +51,4 @@ class AnswerController {
 }
 
 
-export default new AnswerController();
+export default new QuizController();

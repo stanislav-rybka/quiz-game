@@ -4,10 +4,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Greeting from '../components/Greeting/Greeting';
 import Quiz from '../components/Quiz/Quiz';
+import Results from '../components/Results/Results';
+
+
+const NOT_STARTED = 'Not started';
+const STARTED = 'Started';
+const FINISHED = 'Finished';
 
 
 const Game = () => {
-  const [gameIsStarted, setGameIsStarted] = useState(false);
+  const [gameStatus, setGameStatus] = useState(NOT_STARTED);
 
   return (
     <Container style={{ height: window.innerHeight - 76 }}>
@@ -16,13 +22,23 @@ const Game = () => {
 
         <Col xs={8}>
 
-          {!gameIsStarted ? (
+          {gameStatus === NOT_STARTED && (
 
-            <Greeting onStartGame={() => { setGameIsStarted(true) }} />
+            <Greeting onStartGame={() => setGameStatus(STARTED)} />
 
-          ) : (
+          )}
 
-            <Quiz />
+
+          {gameStatus === STARTED && (
+
+            <Quiz onFinish={() => setGameStatus(FINISHED)} />
+
+          )}
+
+
+          {gameStatus === FINISHED && (
+
+            <Results />
 
           )}
 

@@ -8,8 +8,6 @@ export default class UserStore {
 
 
   constructor() {
-    this.user.nickname = 'Limmos';
-
     // Adding observation to class properties
     makeAutoObservable(this);  
   }
@@ -33,7 +31,7 @@ export default class UserStore {
   }
 
   get nickname() {
-    return this._user.nickname;
+    return this.user.nickname;
   }
 
 }

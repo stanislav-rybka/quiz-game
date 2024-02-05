@@ -30,7 +30,7 @@ class UserController {
       // Validating if provided password matches with the password in DB
       const passwordsMatch = bcrypt.compareSync(password, user.password);
 
-      if (!passwordsMatch) {
+      if ( !passwordsMatch ) {
         return next( ApiError.internal('Entered password is incorrect') );
       }
 

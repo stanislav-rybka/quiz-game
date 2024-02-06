@@ -1,8 +1,8 @@
 import { $host } from "./index";
 
 
-export const fetchQuizesByCategory = async (category) => {
-  const response = await $host.get('api/quiz/');
+export const fetchQuizesByCategoryId = async (categoryId) => {
+  const response = await $host.get('api/quiz?categoryId=' + categoryId);
 
   return response;
 }

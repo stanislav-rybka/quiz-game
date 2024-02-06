@@ -2,13 +2,31 @@ import ApiError from "../errors/ApiError.js";
 import Answer from "../models/answer/answer.js";
 import Question from "../models/question/question.js";
 import Quiz from "../models/quiz/quiz.js";
+import { isNumeric } from "../utils/textUtils.js";
 
 
 class QuizController {
 
   async getAll(req, res, next) {
+    const { categoryId } = req.query;
+
     try {
-      const result = await Quiz.findAll();
+      // Check if provided category ID is a numeric value
+      if ( categoryId && !isNumeric(categoryId) ) {
+        throw ApiError.badRequest('"categoryId" has to be a numeric value.');
+      }
+
+      let result = [];
+
+      if (categoryId) {
+        result = await Quiz.findAll({
+          where: {
+            categoryId: +categoryId
+          }
+        });
+      } else {
+        result = await Quiz.findAll();
+      }
 
       return res.status(200).json(result);
     } catch (err) {

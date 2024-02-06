@@ -4,12 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QuizInitializer from '../components/QuizInitializer/QuizInitializer';
 import Quiz from '../components/Quiz/Quiz';
-import Results from '../components/Results/Results';
-
-
-const NOT_STARTED = 'Not started';
-const STARTED = 'Started';
-const FINISHED = 'Finished';
+import QuizResults from '../components/QuizResults/QuizResults';
 import { STATUS_NOT_STARTED, STATUS_STARTED, STATUS_FINISHED } from '../utils/constants';
 
 
@@ -55,7 +50,7 @@ const Game = () => {
 
           {gameStatus === STATUS_FINISHED && (
 
-            <Results />
+            <QuizResults />
 
           )}
 

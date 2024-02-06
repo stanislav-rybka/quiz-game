@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import Card from 'react-bootstrap/Card';
 
 
-const Results = observer(({ onStartGame }) => {
+const QuizResults = observer(({ onStartGame }) => {
   const { quiz } = useContext(Context);
 
   return (
@@ -31,4 +31,4 @@ const Results = observer(({ onStartGame }) => {
 });
 
 
-export default Results;
+export default QuizResults;

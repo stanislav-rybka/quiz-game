@@ -58,7 +58,8 @@ export default class QuizStore {
   _convertQuestions(questions) {
     return questions.map(question => ({
       ...question,
-      correctAnswerId: question.answers.find(answer => answer.isCorrect === true)?.id
+      correctAnswerId: question.answers.find(answer => answer.isCorrect === true)?.id,
+      answers: [...shuffle(question.answers)]
     }))
   }
 

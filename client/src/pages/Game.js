@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Greeting from '../components/Greeting/Greeting';
+import QuizInitializer from '../components/QuizInitializer/QuizInitializer';
 import Quiz from '../components/Quiz/Quiz';
 import Results from '../components/Results/Results';
 
@@ -10,10 +10,25 @@ import Results from '../components/Results/Results';
 const NOT_STARTED = 'Not started';
 const STARTED = 'Started';
 const FINISHED = 'Finished';
+import { STATUS_NOT_STARTED, STATUS_STARTED, STATUS_FINISHED } from '../utils/constants';
 
 
 const Game = () => {
-  const [gameStatus, setGameStatus] = useState(NOT_STARTED);
+  // State hooks
+  const [gameStatus, setGameStatus] = useState(STATUS_NOT_STARTED);
+  const [quizId, setQuizId] = useState(null);
+
+
+  // Action handlers
+  const handleQuizStart = (quizId) => {
+    setQuizId(quizId);
+    setGameStatus(STATUS_STARTED);
+  };
+
+  const handleQuizFinish = () => {
+    setGameStatus(STATUS_FINISHED);
+  }
+
 
   return (
     <Container style={{ height: window.innerHeight - 76 }}>
@@ -22,21 +37,23 @@ const Game = () => {
 
         <Col xs={8}>
 
-          {gameStatus === NOT_STARTED && (
+          {gameStatus === STATUS_NOT_STARTED && (
 
-            <Greeting onStartGame={() => setGameStatus(STARTED)} />
+            <QuizInitializer onStart={handleQuizStart} />
+
+          )}
+
+            {/* <Greeting onStartGame={() => setGameStatus(STATUS_STARTED)} /> */}
+
+
+          {gameStatus === STATUS_STARTED && (
+
+            <Quiz quizId={quizId} onFinish={handleQuizFinish} />
 
           )}
 
 
-          {gameStatus === STARTED && (
-
-            <Quiz onFinish={() => setGameStatus(FINISHED)} />
-
-          )}
-
-
-          {gameStatus === FINISHED && (
+          {gameStatus === STATUS_FINISHED && (
 
             <Results />
 

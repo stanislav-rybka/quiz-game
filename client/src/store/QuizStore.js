@@ -41,8 +41,7 @@ export default class QuizStore {
   }
 
 
-  async initialize() {
-    // TODO: change to API request
+  async initialize(quizId) {
     await new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(true);
@@ -50,7 +49,7 @@ export default class QuizStore {
     });
 
 
-    const response = await fetchQuizById(1);
+    const response = await fetchQuizById(quizId);
 
     this.setName(response.data.name);
     this.setDescription(response.data.description);

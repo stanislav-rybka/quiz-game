@@ -11,7 +11,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-const Quiz = observer(({ onFinish }) => {
+const Quiz = observer(({ quizId, onFinish }) => {
   // Context hooks
   const { quiz } = useContext(Context);
 
@@ -28,7 +28,7 @@ const Quiz = observer(({ onFinish }) => {
   
   // State hooks
   const [loading, setLoading] = useState(true);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerIsSubmitted, setAnswerIsSubmitted] = useState(false);
 
   // Calculations
@@ -40,8 +40,11 @@ const Quiz = observer(({ onFinish }) => {
 
   // Initializing a quiz
   useEffect(() => {
-    quiz.initialize().finally(() => setLoading(false));
-  }, [quiz]);
+
+    quiz.initialize(quizId)
+      .finally(() => setLoading(false));
+
+  }, [quiz, quizId]);
 
 
   // Actions handlers
@@ -73,6 +76,7 @@ const Quiz = observer(({ onFinish }) => {
 
   const handleNextQuestionButtonClick = () => {
     quiz.moveToNextQuestion();
+    setSelectedAnswer(null);
     setAnswerIsSubmitted(false);
   }
 
@@ -139,7 +143,7 @@ const Quiz = observer(({ onFinish }) => {
 
                 <div 
                   className={`p-3 m-1 rounded border ${answer.id === selectedAnswer ? 'active-answer-option' : 'answer-option'}`}
-                  onClick={() => setSelectedAnswer(answer.id)}
+                  onClick={() => !answerIsSubmitted && setSelectedAnswer(answer.id)}
                   ref={(node) => handleAnswerOptionRefInit(node, answer)}
                 >
 
@@ -149,6 +153,7 @@ const Quiz = observer(({ onFinish }) => {
                     label={answer.text}
                     value={answer.id}
                     checked={answer.id === selectedAnswer}
+                    disabled={answerIsSubmitted}
                     onChange={(e) => setSelectedAnswer(e.target.value)}
                   />
 

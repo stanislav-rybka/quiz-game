@@ -6,15 +6,12 @@ import Header from './components/Header/Header';
 
 const App = () => {
   return (
-    // Routing configuration
     <BrowserRouter>
-
       {/* Header is visible by default */}
       <Header />
 
       {/* Adding routes to different URLs */}
       <AppRouter />
-
     </BrowserRouter>
   );
 }

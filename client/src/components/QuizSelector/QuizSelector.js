@@ -38,7 +38,6 @@ const QuizSelector = ({ category, value, onSelect }) => {
   
   return (
     <ListGroup>
-
       {quizes.length > 0 && quizes.map(quiz => (
 
         <ListGroup.Item
@@ -50,13 +49,10 @@ const QuizSelector = ({ category, value, onSelect }) => {
         >
           <h6>{quiz.name}</h6>
 
-          <div>
-            {quiz.description}
-          </div>
+          <div>{quiz.description}</div>
         </ListGroup.Item>
 
       ))}
-
 
       {quizes.length === 0 && (
         
@@ -65,7 +61,6 @@ const QuizSelector = ({ category, value, onSelect }) => {
         </ListGroup.Item>
 
       )}
-      
     </ListGroup>
   );
 }

@@ -35,7 +35,6 @@ const CategorySelector = ({ value, onSelect }) => {
 
   return (
     <ListGroup>
-
       {categories.length > 0 && categories.map(category => (
 
         <ListGroup.Item
@@ -46,22 +45,18 @@ const CategorySelector = ({ value, onSelect }) => {
           active={category.id === value?.id}
           onClick={() => onSelect(category)}
         >
-
           {category.name}
-
         </ListGroup.Item>
 
       ))}
 
-
       {categories.length === 0 && (
-        
+
         <ListGroup.Item className="text-center">
           No categories found
         </ListGroup.Item>
 
       )}
-      
     </ListGroup>
   );
 }

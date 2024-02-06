@@ -33,19 +33,16 @@ const QuizInitializer = observer(({ onStart }) => {
 
   return (
     <Card>
-
       <Card.Body className="">
-
-        <Card.Title>{user.isAuthorized ? `Welcome, ${user.nickname}!` : 'Welcome!'}</Card.Title>
+        <Card.Title>
+          {user.isAuthorized ? `Welcome, ${user.nickname}!` : 'Welcome!'}
+        </Card.Title>
 
         <Card.Text>
           Please, select a quiz with specific category. Once you are ready, click the "Start Quiz" button to start a quiz.
         </Card.Text>
 
-
         <Accordion defaultActiveKey={['0']}>
-
-          {/* Category selection */}
           <Accordion.Item eventKey="0">
             <Accordion.Header>Category</Accordion.Header>
 
@@ -57,7 +54,6 @@ const QuizInitializer = observer(({ onStart }) => {
             </Accordion.Body>
           </Accordion.Item>
 
-          {/* Quiz selection */}
           <Accordion.Item eventKey="1">
             <Accordion.Header>Quiz</Accordion.Header>
 
@@ -69,12 +65,9 @@ const QuizInitializer = observer(({ onStart }) => {
               />
             </Accordion.Body>
           </Accordion.Item>
-
         </Accordion>
 
-
         <div class="d-flex justify-content-end mt-4">
-
           <Button
             variant="success"
             disabled={ !selectedCategory || !selectedQuiz }
@@ -82,11 +75,8 @@ const QuizInitializer = observer(({ onStart }) => {
           >
             Start Quiz
           </Button>
-
         </div>
-
       </Card.Body>
-
     </Card>
   );
 });

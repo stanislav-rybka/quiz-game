@@ -5,8 +5,6 @@ import { fetchQuizById } from "../http/quizAPI";
 
 export default class QuizStore {
 
-  _defaultQuestionsCount = 20;
-
   _name;
   _description;
   _questions = [];
@@ -81,10 +79,6 @@ export default class QuizStore {
     this.setCurrentQuestion(this.currentQuestion.number);
   }
 
-
-  get defaultQuestionsCount() {
-    return this._defaultQuestionsCount;
-  }
 
   get name() {
     return this._name;

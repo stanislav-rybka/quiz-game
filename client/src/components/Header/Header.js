@@ -10,6 +10,7 @@ import { GAME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/constan
 
 
 const Header = observer(() => {
+  // Context hooks
   const { user } = useContext(Context);
 
   // Using hook to navigate to pages
@@ -22,9 +23,7 @@ const Header = observer(() => {
 
   return (
     <Navbar data-bs-theme="dark" bg="dark" >
-
       <Container>
-
         <Navbar.Brand href={GAME_ROUTE}>
           <img alt=""
                src="./quiz-logo-white.png"
@@ -33,7 +32,6 @@ const Header = observer(() => {
                className="d-inline-block align-top"
           />
         </Navbar.Brand>
-
 
         {isAuthorizationPage ? (
           
@@ -50,19 +48,16 @@ const Header = observer(() => {
         ) : (
           
           <Nav className="ml-auto">
-
             <Navbar.Text className="me-4">
               Signed in as: <a href="#login">{user.nickname}</a>
             </Navbar.Text>
 
             <Button variant="outline-light" onClick={() => { user.setIsAuthorized(false) }}>Logout</Button>
-
           </Nav>
 
         )}
 
       </Container>
-
     </Navbar>
   );
 });

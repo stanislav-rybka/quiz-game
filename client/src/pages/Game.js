@@ -27,17 +27,13 @@ const Game = () => {
 
   return (
     <Container style={{ height: window.innerHeight - 76 }}>
-
       <Row className="h-100 justify-content-center align-items-center">
-
         <Col xs={8}>
-
           {gameStatus === STATUS_NOT_STARTED && (
 
             <QuizInitializer onStart={handleQuizStart} />
 
           )}
-
 
           {gameStatus === STATUS_STARTED && (
 
@@ -45,17 +41,13 @@ const Game = () => {
 
           )}
 
-
           {gameStatus === STATUS_FINISHED && (
 
             <QuizResults />
 
           )}
-
         </Col>
-      
       </Row>
-
     </Container>
   );
 }

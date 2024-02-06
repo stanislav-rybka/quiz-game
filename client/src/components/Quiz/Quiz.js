@@ -100,23 +100,18 @@ const Quiz = observer(({ quizId, onFinish }) => {
 
   return (
     <Card>
-
       <Card.Header className="text-center">
         {quiz.name}
       </Card.Header>
 
-
       <Card.Header>
-
         <ProgressBar 
           variant="success" 
           now={progressBarRatio} 
           label={`${submittedQuestionsCount} / ${totalQuestionsCount}`} 
         />
-
       </Card.Header>
 
-      
       {currentQuestion.image && (
 
         <Card.Img 
@@ -127,26 +122,19 @@ const Quiz = observer(({ quizId, onFinish }) => {
 
       )}
 
-
       <Card.Body>
-
         <Card.Title> {currentQuestion.text} </Card.Title>
 
-        
         <Form>
-
           <Row className="mt-4">
-
             {currentQuestion.answers.map(answer => (
 
               <Col key={answer.id} xs={12} md={6}>
-
                 <div 
                   className={`p-3 m-1 rounded border ${answer.id === selectedAnswer ? 'active-answer-option' : 'answer-option'}`}
                   onClick={() => !answerIsSubmitted && setSelectedAnswer(answer.id)}
                   ref={(node) => handleAnswerOptionRefInit(node, answer)}
                 >
-
                   <Form.Check
                     name="question-answer"
                     type="radio"
@@ -156,20 +144,14 @@ const Quiz = observer(({ quizId, onFinish }) => {
                     disabled={answerIsSubmitted}
                     onChange={(e) => setSelectedAnswer(e.target.value)}
                   />
-
                 </div>
-                
               </Col>
 
             ))}
-
           </Row>
-
         </Form>
 
-
         <Row className="mt-4 justify-content-center">
-
           <Col xs={12} md={6}>
             <div className="d-flex justify-content-center justify-content-md-end">
               <Button
@@ -184,7 +166,6 @@ const Quiz = observer(({ quizId, onFinish }) => {
 
           <Col xs={12} md={6}>
             <div className="d-flex justify-content-center justify-content-md-start mt-2 mt-md-0">
-
               {submittedQuestionsCount < totalQuestionsCount ? (
 
                 <Button 
@@ -206,14 +187,10 @@ const Quiz = observer(({ quizId, onFinish }) => {
                 </Button>
                 
               )}
-
             </div>
           </Col>
-
         </Row>
-
       </Card.Body>
-
     </Card>
   );
 });

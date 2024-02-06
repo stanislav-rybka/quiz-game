@@ -4,7 +4,6 @@ import Game from "./pages/Game";
 
 
 export const publicRoutes = [
-  
   {
     path: LOGIN_ROUTE,
     element: <Auth />
@@ -19,5 +18,4 @@ export const publicRoutes = [
     path: GAME_ROUTE,
     element: <Game />
   },
-
 ];

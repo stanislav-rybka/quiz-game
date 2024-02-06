@@ -15,11 +15,8 @@ const Auth = () => {
 
   return (
     <Container style={{ height: window.innerHeight - 76 }}>
-
       <Row className="h-100 justify-content-center align-items-center">
-
         <Col xs={6}>
-
           {isLogin ? (
 
             <LoginForm />
@@ -29,11 +26,8 @@ const Auth = () => {
             <SignUpForm />
           
           )}
-
         </Col>
-
       </Row>
-
     </Container>
   )
 };

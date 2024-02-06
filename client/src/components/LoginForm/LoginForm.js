@@ -41,11 +41,9 @@ const LoginForm = observer(() => {
 
   return (
     <Card className="px-5 py-4">
-
       <h2 className="m-auto">Login</h2>
     
       <Form className="mt-5">
-      
         <FloatingLabel controlId="floating-email" label="Email address" className="mb-3">
           <Form.Control type="email" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
         </FloatingLabel>
@@ -55,27 +53,19 @@ const LoginForm = observer(() => {
         </FloatingLabel>
 
         <Row className="mt-4 justify-content-between">
-        
           <Col>
-
             <div>
                 Don't have an account? <NavLink to={REGISTRATION_ROUTE}>Sign Up</NavLink>
             </div>
-
           </Col>
 
           <Col xs="auto">
-
             <Button variant="secondary" onClick={handleLoginButtonClick}>
               Login
             </Button>
-
           </Col>
-
         </Row>
-
       </Form>
-
     </Card>
   );
 });

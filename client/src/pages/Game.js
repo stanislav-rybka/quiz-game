@@ -38,8 +38,6 @@ const Game = () => {
 
           )}
 
-            {/* <Greeting onStartGame={() => setGameStatus(STATUS_STARTED)} /> */}
-
 
           {gameStatus === STATUS_STARTED && (
 
